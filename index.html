@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Service Worker</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      window.addEventListener("load", () => {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .register("/sw.js", { scope: "/" })
+            .then(function (registration) {
+              console.log("Service Worker Registrado");
+            })
+            .catch((error) => {
+              console.warn("Erro ao registrar o Service Worker");
+              console.warn(error);
+            });
+          navigator.serviceWorker.ready.then(function (registration) {
+            console.log("Service Worker Pronto");
+            registration.update();
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
